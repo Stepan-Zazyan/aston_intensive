@@ -4,6 +4,7 @@ import java.util.*;
 
 /**
  * Класс реализует работу списка(динамического массива)
+ *
  * @author STEPAN ZAZYAN
  * @version 1.0
  */
@@ -21,7 +22,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     }
 
     /**
-     *Этот метод должен увеличить размер списка вдвое
+     * Этот метод должен увеличить размер списка вдвое
      */
     private void extendSize() {
         if (container.length == 0) {
@@ -33,6 +34,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     /**
      * Этот метод должен добавить значение в список
+     *
      * @param value принимает значение value
      */
     @Override
@@ -45,8 +47,34 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     }
 
     /**
+     * Этот метод должен добавить значение в список по индексу
+     *
+     * @param index    принимает целочисленный индекс
+     * @param value принимает добавляемое значение
+     * @return возвращает добавленное значение
+     */
+    @Override
+    public T addByIndex(int index, T value) {
+        if (container.length == size) {
+            extendSize();
+        }
+        System.arraycopy(
+                container,
+                index,
+                container,
+                index + 1,
+                container.length - index - 1
+        );
+        set(index, value);
+        size++;
+        modCount++;
+        return value;
+    }
+
+    /**
      * Этот метод должен обновить значение в списке по индексу:
-     * @param index принимает целочисленный индекс
+     *
+     * @param index    принимает целочисленный индекс
      * @param newValue Принимает значение
      * @return старое значение по индексу
      */
@@ -59,6 +87,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     /**
      * Этот метод должен удалить значение в списке по индексу:
+     *
      * @param index принимает целочисленный индекс
      * @return удаленное значение
      */
@@ -67,10 +96,10 @@ public class SimpleArrayList<T> implements SimpleList<T> {
         T value = get(index);
         System.arraycopy(
                 container,
-                index + 1,
+                index + 1, //со следующего элемента 5
                 container,
-                index,
-                container.length - index - 1
+                index, //с текущего элемента 4
+                container.length - index - 1 // 10 - 4 - 1
         );
         container[container.length - 1] = null;
         size--;
@@ -80,6 +109,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     /**
      * Этот метод должен удалить первое найденное значение:
+     *
      * @param value принимает значение
      * @return удаленное значение
      */
@@ -96,6 +126,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     /**
      * Этот метод должен найти значение в списке по индексу:
+     *
      * @param index принимает целочисленный номер индекса
      * @return найденное значение
      */
@@ -107,6 +138,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     /**
      * Этот метод должен вернуть размер списка:
+     *
      * @return возвращает размер списка
      */
     @Override
@@ -115,7 +147,18 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     }
 
     /**
+     * Этот метод должен вернуть размер списка:
+     */
+    @Override
+    public void clear() {
+        container = null;
+        size = 0;
+        modCount = 0;
+    }
+
+    /**
      * Этот метод должен вернуть объект итератор для обхода списка:
+     *
      * @return возвращает итератор
      */
     @Override

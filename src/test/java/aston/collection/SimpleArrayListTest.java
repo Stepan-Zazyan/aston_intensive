@@ -70,6 +70,19 @@ class SimpleArrayListTest {
     }
 
     @Test
+    void whenAddByIndexThenGetValueAndSizeChanged() {
+        assertThat(list.addByIndex(1, 22)).isEqualTo(22);
+        assertThat(list.get(2)).isEqualTo(2);
+        assertThat(list.size()).isNotEqualTo(3);
+    }
+
+    @Test
+    void whenClearAndSizeEqualsZero() {
+        list.clear();
+        assertThat(list.size()).isEqualTo(0);
+    }
+
+    @Test
     void whenGetIteratorFromEmptyListThenHasNextReturnFalse() {
         list = new SimpleArrayList<>(5);
         assertThat(list.iterator().hasNext()).isFalse();
