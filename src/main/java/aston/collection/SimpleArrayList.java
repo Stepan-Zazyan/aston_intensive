@@ -8,7 +8,7 @@ import java.util.*;
  * @author STEPAN ZAZYAN
  * @version 1.0
  */
-
+ // все отлично!
 public class SimpleArrayList<T> implements SimpleList<T> {
 
     private T[] container;
@@ -25,11 +25,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
      * Этот метод должен увеличить размер списка вдвое
      */
     private void extendSize() {
-        if (container.length == 0) {
-            container = Arrays.copyOf(container, container.length + 1);
-        } else {
-            container = Arrays.copyOf(container, container.length * 2);
-        }
+        container = Arrays.copyOf(container, container.length == 0 ? 1 : container.length * 2);
     }
 
     /**
